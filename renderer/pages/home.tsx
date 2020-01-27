@@ -1,71 +1,107 @@
-import React, { useState } from 'react';
-import Head from 'next/head';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react'
+import Header from '../components/Header'
+import Center from '../components/Center'
+import Particles from 'react-particles-js';
+import { withStyles } from '@material-ui/styles';
+import Link from "next/link";
+import Typing from 'react-typing-animation';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
-import { Link } from '../components';
+import Bounce from 'react-reveal/Bounce';
+import NavigationIcon from '@material-ui/icons/Navigation';
 
-import {ipcRenderer} from "electron";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+var styles = withStyles(theme => ({
     root: {
-      textAlign: 'center',
-      paddingTop: theme.spacing(4),
+        backgroundColor: "#039be5",
+        color: "white",
+        justifyContent: 'center',
+        '& > *': {
+            margin: theme.spacing(1),
+          },
     },
-  })
-);
+    displayer: {
+        textAlign: "center",
+        fontSize: "xx-large"
+    },
+    buttonGo: {
+        textAlign: "center",
+        display: "flex",
+        paddingLeft: "15%"
+        
+    },
+    inline: {
+        display: "inline-block"
+    }
+    
+}))
 
-const Home = () => {
-  const classes = useStyles({});
-  const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
-  const handleClick = () => setOpen(true);
-  const testIPC = () => {
-    ipcRenderer.send("update-use-modMgr", true)
-  }
-  return (
-    <React.Fragment>
-      <Head>
-        <title>Home - Nextron (with-typescript-material-ui)</title>
-      </Head>
 
-      <div className={classes.root}>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Super Secret Password</DialogTitle>
-          <DialogContent>
-            <DialogContentText>1-2-3-4-5</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button color="primary" onClick={handleClose}>
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <Typography variant="h4" gutterBottom>
-          Material-UI
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          with Nextron
-        </Typography>
-        <img src="/images/logo.png" />
-        <Typography gutterBottom>
-          <Link href="/next">Go to the next page</Link>
-        </Typography>
-        <Button variant="contained" color="secondary" onClick={handleClick}>
-          Super Secret Password
-        </Button>
-        <Button color="primary" onClick={testIPC}>
-              IPC
-        </Button>
-      </div>
-    </React.Fragment>
-  );
-};
 
-export default Home;
+
+class Home extends Component<any, any> {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             finished: false
+        }
+    }
+    
+    render() {
+        var {classes} = (this.props as any);
+        
+        return (
+                <div>
+                
+                
+            <div className={classes.root}>
+            <Header />
+            <Particles />
+                    <Center>
+                        <Typing className={classes.displayer} onFinishedTyping={()=>{this.setState({finished: true})}}>
+                            <span>Welcome to SpaceKit<br/></span>
+                            <span>Ready for mods
+                            <Typing.Backspace count={4} />
+                            saves
+                            <Typing.Backspace count={5} />
+                            everything you may need.
+                            </span>
+                            <Typing.Delay ms={500} />
+
+                        </Typing>
+                        <br/>
+                            <br/>
+                        <div className={classes.buttonGo}>
+                            
+                        <Bounce left when={this.state.finished}>
+                        
+                          <Link href="/mods">
+                        <Button variant="contained" color="primary">
+                                <NavigationIcon className={classes.extendedIcon} />
+                                     Manage Mods
+                            </Button>
+                            </Link>
+                            <Link href="/next">
+                        <Button variant="contained" color="primary">
+                                <NavigationIcon className={classes.extendedIcon} />
+                                     Edit saves
+                            </Button>
+                            </Link>
+                            
+                            </Bounce>
+                        
+                        
+                        
+                        
+                        
+                        </div>
+                    </Center>
+                </div>
+            </div>
+        )
+    }
+}
+
+export default styles(Home)
+
+

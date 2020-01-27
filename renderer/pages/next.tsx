@@ -4,7 +4,8 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Link } from '../components';
-
+import ContentParticled from '../components/Content'
+import CardWrapper from '../components/CardWrapper';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -18,7 +19,8 @@ const Next = () => {
   const classes = useStyles({});
 
   return (
-    <React.Fragment>
+    <ContentParticled>
+      <CardWrapper>
       <Head>
         <title>Next - Nextron (with-typescript-material-ui)</title>
       </Head>
@@ -37,7 +39,8 @@ const Next = () => {
           Do nothing button
         </Button>
       </div>
-    </React.Fragment>
+      </CardWrapper>
+    </ContentParticled>
   );
 };
 
