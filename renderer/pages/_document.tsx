@@ -5,6 +5,7 @@ import {
   initializeFonts,
   theme,
 } from '../lib';
+import withContainer from '../components/withContainer'
 
 class MyDocument extends Document {
   componentDidMount() {
@@ -52,6 +53,7 @@ class MyDocument extends Document {
 }
 
 MyDocument.getInitialProps = async ctx => {
+  console.log("DIP")
   const sheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
 

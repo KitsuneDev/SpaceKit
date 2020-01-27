@@ -3,6 +3,7 @@ dependencies:
   '@material-ui/icons': 4.5.1_7ce1ec288a8cf29eb6226b8d3d573095
   '@material-ui/pickers': 3.2.9_2228f94e18069d4d2cba4fc0abd2c4eb
   '@material-ui/styles': 4.9.0_c8a168afa712c8c7b27c64a4de716a57
+  clsx: 1.0.4
   electron-serve: 0.4.1
   electron-store: 5.1.0
   prop-types: 15.7.2
@@ -7825,6 +7826,7 @@ specifiers:
   '@types/react-dom': ^16.9.5
   '@zeit/next-css': 1.0.1
   babel-loader: 8.0.6
+  clsx: ^1.0.4
   electron: ^7.1.10
   electron-builder: ^22.3.2
   electron-serve: ^0.4.1

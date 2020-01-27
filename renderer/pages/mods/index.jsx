@@ -10,8 +10,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-import { ToggleModloader } from '../../apis/modmanger'
-import {NextPage} from 'next';
+import { ToggleModloader, QueryModloaderActive } from '../../apis/modmanger'
+
 
 const styled = withStyles(theme => ({
      root: {
@@ -21,13 +21,13 @@ const styled = withStyles(theme => ({
   
   }));
 
-class Modloader extends NextPage {
+class Modloader extends Component {
   constructor(props){
     super(props)
     this.state = {
-      checkedA: props.modloaderOn,
+      checkedA: false,
       ready: false,
-      processing: false
+      processing: true
     }
   }
 
@@ -40,6 +40,20 @@ class Modloader extends NextPage {
       this.setState({ ...this.state, checkedA: newState, ready: newState, processing: false });
     })
 
+  }
+
+  componentDidMount = async () => {
+    
+      console.log("Loading Page...")
+      var isOn = await QueryModloaderActive();
+      console.log(isOn);
+      var props = {
+        checkedA: isOn,
+        processing: false
+      }
+      this.setState({...this.state, ...props});
+      
+    
   }
 
   render() {
@@ -70,9 +84,9 @@ class Modloader extends NextPage {
         </Button>
         <br/><br/>
         <Typography gutterBottom>
-          <Link href="/home">Back</Link>
+          <Link href="/home">Voltar</Link>
         </Typography>
-        {this.state.processing ? <LinearProgress /> : <React.Fragment></React.Fragment>}
+        {this.state.processing ? <LinearProgress /> : ""}
         
       </div>
       </CardWrapper>
@@ -83,14 +97,7 @@ class Modloader extends NextPage {
   
 
 }
+var render = styled(Modloader);
+//render.
 
-Modloader.getInitialProps = async (ctx) => {
-  props = {
-    modloaderOn: true,
-
-  }
-  // ...
-  return props
-}
-
-export default styled(Modloader);
+export default render;
