@@ -2,10 +2,14 @@
 import {ipcMain} from 'electron'
 import {app} from 'electron';
 import {join} from 'path';
-import {existsSync, rename} from 'fs'
+import {exists, rename, readFile, copyFile} from 'fs'
 import {promisify} from 'util';
 
 var renameAsync = promisify(rename);
+var readAsync = promisify(readFile);
+var copyAsync = promisify(copyFile);
+var existsAsync = promisify(exists);
+
 var rootName="Paradox Interactive/Stellaris"
 var rootDir=join(app.getPath("documents"), rootName);
 
@@ -15,6 +19,7 @@ export default function HandleIPC(){
         console.log(arg);
         if(arg == true) {
             await renameAsync(join(rootDir, "dlc_load.json"), join(rootDir, "dlc_load.json.userMods"))
+            
         }
         else {
             await renameAsync(join(rootDir, "dlc_load.json.userMods"), join(rootDir, "dlc_load.json"))
@@ -22,8 +27,21 @@ export default function HandleIPC(){
         return true
       })
 
-      ipcMain.handle('queryModloader', function (event, arg) {
+
+
+      ipcMain.handle('queryModloader', async (event, arg) => {
         var state = join(rootDir, "dlc_load.json.userMods") //TODO: Set correct filename
-        return existsSync(state);
+        return existsAsync(state);
+      })
+
+
+
+      ipcMain.handle('readGameDlc', async (event, arg) => {
+        const path = join(rootDir, "dlc_load.json");
+        if(await existsAsync(path)){
+        var file = await readAsync(path)
+        return JSON.parse(file.toString())
+        }
+        else return {"disabled_dlcs":[],"enabled_mods":[]}
       })
 }

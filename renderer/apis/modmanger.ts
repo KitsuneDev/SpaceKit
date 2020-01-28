@@ -1,11 +1,22 @@
 import {ipcRenderer} from 'electron'
+import { QueryResponseObject } from './QueryWorkshop';
+import { DlcLoad } from './../../main/ipc/modMgr/gameFiles';
 
+export interface ToggleRequest {
+    status: boolean,
+    managerState: DlcLoad
+}
 
-
-export function ToggleModloader(status){
+export default class ModManager{
+static ToggleModloader(status: DlcLoad):Promise<void>{
     return ipcRenderer.invoke("toggleModloader", status);
 }
 
-export function QueryModloaderActive(){
-    return ipcRenderer.invoke("queryModloader", status);
+static QueryModloaderActive(): Promise<boolean>{
+    return ipcRenderer.invoke("queryModloader");
+}
+
+static GetDLCLoads(): Promise<QueryResponseObject>{
+    return ipcRenderer.invoke("readGameDlc");
+}
 }

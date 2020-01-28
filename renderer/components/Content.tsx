@@ -14,7 +14,8 @@ var styles = withStyles({
     root: {
         backgroundColor: "#039be5",
         color: "white",
-        justifyContent: 'center'
+        justifyContent: 'center',
+        overflow: "hidden"
     },
 
     card: {
@@ -45,10 +46,11 @@ class ContentParticled extends Component {
                 ? <Header />
                 : null
                 )}
-                <Particles />
-                <Center>
+                
+                
                 {this.props.children}
-                </Center>
+                
+                <Particles />
 
 
             </div>
