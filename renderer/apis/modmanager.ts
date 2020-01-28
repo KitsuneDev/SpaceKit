@@ -1,6 +1,6 @@
 import {ipcRenderer} from 'electron'
 import { QueryResponseObject } from './QueryWorkshop';
-import { DlcLoad } from './../../main/ipc/modMgr/gameFiles';
+import { DlcLoad } from '../../main/ipc/modMgr/gameFiles';
 
 export interface ToggleRequest {
     status: boolean,

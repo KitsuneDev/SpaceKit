@@ -50,6 +50,9 @@ export async function QueryWorkshop(items: string[]){
     for(var i=0; i<items.length; i++) {
         base[`publishedfileids[${i}]`] = items[i]
     }
+    if(base["publishedfileids[0]"] == null) return {response: {
+        publishedfiledetails: []
+    }};
     //"publishedfileids": items
     var query = await axios({
         method: 'post',

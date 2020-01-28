@@ -8,26 +8,14 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
+
 import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 import { QueryWorkshop } from '../apis/QueryWorkshop';
 import { QueryResponseObject } from '../apis/QueryWorkshop';
-export class WorkshopModList extends Component<any, any> {
-    render() {
-        console.log(this.props)
-        return (
-            <div>
-                
-                
-                    <WorkshopMod list={this.props.list}/>
-                
-            </div>
-        )
-    }
-}
+
 
 const useStyles =  withStyles(theme => ({
     root: {
@@ -47,12 +35,13 @@ class WorkshopModStub extends Component<any, any> {
             }}
 
         }
-        this.renderMods()
+        
     }
 
-    componentDidUpdate = async (prevProps)=>{
+    componentDidUpdate = (prevProps)=>{
         if(prevProps.list !== this.props.list){
-            await this.renderMods()
+            console.log("render")
+            this.renderMods()
         }
     }
     renderMods = async ()=>{
@@ -60,6 +49,11 @@ class WorkshopModStub extends Component<any, any> {
             return mod.substring(8).replace(".mod", "")
         }))
         this.setState({...this.state, mods: (mods as QueryResponseObject)})
+    }
+
+    onRemove = (id) => () => {
+        this.props.removeItem(id)
+        this.renderMods();
     }
     render() {
 
@@ -82,8 +76,8 @@ class WorkshopModStub extends Component<any, any> {
         </ListItemAvatar>
           <ListItemText id={labelId} primary={mod.title} />
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="comments">
-              <CommentIcon />
+            <IconButton edge="end" aria-label="comments" onClick={this.onRemove(value)}>
+              <DeleteIcon />
             </IconButton>
           </ListItemSecondaryAction>
         </ListItem>
@@ -95,5 +89,4 @@ class WorkshopModStub extends Component<any, any> {
     }
 }
 
-var WorkshopMod = useStyles(WorkshopModStub)
-//export WorkshopMod;
+export default useStyles(WorkshopModStub)

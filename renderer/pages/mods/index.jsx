@@ -11,8 +11,9 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-import ModManager from '../../apis/modmanger'
-import { WorkshopModList } from './../../components/WorkshopMod';
+import ModManager from '../../apis/modmanager'
+import WorkshopModList from './../../components/WorkshopMod';
+import SaveButton from './../../components/saveButton';
 
 
 const styled = withStyles(theme => ({
@@ -72,6 +73,18 @@ class Modloader extends Component {
     
   }
 
+  removeMod = (index) => {
+    var dlcs = this.state.dlcLoad;
+    dlcs.enabled_mods.splice(index, 1);
+    console.log("Removed at", index)
+    console.log(dlcs)
+    this.setState({...this.state, dlcLoad: dlcs})
+  }
+
+  saveList = async () => {
+     // this.setState({...this.state, processing: true})
+  }
+
   render() {
     var {classes} = (this.props);
     return (<ContentParticled>
@@ -92,14 +105,15 @@ class Modloader extends Component {
         control={
           <Switch checked={this.state.checkedA} onChange={this.toggleModLoader} value="checkedA" disabled={this.state.processing}/>
         }
-        label="Secondary"
+        label="Use ModManager"
       />
         <br/><br/>
         <Button variant="contained" color="primary" disabled={!this.state.ready || this.state.processing}>
           Load Session from URL
         </Button>
+        
         <br/><br/>
-        <WorkshopModList list={this.state.dlcLoad} style={{width: "100%"}}/>
+        <WorkshopModList list={this.state.dlcLoad} removeItem={this.removeMod} style={{width: "100%"}}/>
         <br/><br/>
         <Typography gutterBottom>
           <Link href="/home">Voltar</Link>
@@ -107,6 +121,7 @@ class Modloader extends Component {
         {this.state.processing ? <LinearProgress /> : ""}
         
       </div>
+      <SaveButton onClick={this.saveList} loading={this.state.processing} disabled={!this.state.ready}/>
       </Paper>
     </ContentParticled>);
 

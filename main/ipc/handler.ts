@@ -17,12 +17,18 @@ export default function HandleIPC(){
 
     ipcMain.handle('toggleModloader', async (event, arg) => {
         console.log(arg);
-        if(arg == true) {
+        if(arg.status == true) {
             await renameAsync(join(rootDir, "dlc_load.json"), join(rootDir, "dlc_load.json.userMods"))
-            
+            if(await existsAsync(join(rootDir, "dlc_load.json.ml"))){
+              await renameAsync(join(rootDir, "dlc_load.json.ml"), join(rootDir, "dlc_load.json"))
+            }
         }
         else {
+          if(await existsAsync(join(rootDir, "dlc_load.json"))){
+            await renameAsync(join(rootDir, "dlc_load.json"), join(rootDir, "dlc_load.json.ml"))
+          }
             await renameAsync(join(rootDir, "dlc_load.json.userMods"), join(rootDir, "dlc_load.json"))
+            
         }
         return true
       })
