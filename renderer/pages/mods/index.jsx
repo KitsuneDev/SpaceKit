@@ -11,7 +11,9 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
+
 import ModManager from '../../apis/modmanager'
+import FolderModList from '../../components/FolderModsAdd'
 import WorkshopModList from './../../components/WorkshopMod';
 import SaveButton from './../../components/saveButton';
 
@@ -91,6 +93,14 @@ class Modloader extends Component {
     
   }
 
+  addMod = (id) => {
+    var dlcs = this.state.dlcLoad;
+    dlcs.enabled_mods.push("mod/"+id)
+    console.log("Added mod", id)
+    console.log(dlcs)
+    this.setState({...this.state, dlcLoad: dlcs})
+  }
+
   removeMod = (index) => {
     var dlcs = this.state.dlcLoad;
     dlcs.enabled_mods.splice(index, 1);
@@ -162,8 +172,7 @@ class Modloader extends Component {
       >
         <Fade in={this.state.addMod}>
           <div className={classes.modalContent}>
-            <h2 id="transition-modal-title">Transition modal</h2>
-            <p id="transition-modal-description">react-transition-group animates me.</p>
+            <FolderModList addMod={this.addMod}></FolderModList>
           </div>
         </Fade>
       </Modal>

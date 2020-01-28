@@ -12,10 +12,45 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import { shallowEqual } from 'recompose'; 
+
 
 import { QueryWorkshop } from '../apis/QueryWorkshop';
 import { QueryResponseObject } from '../apis/QueryWorkshop';
 
+function clone(obj) {
+  var copy;
+
+  // Handle the 3 simple types, and null or undefined
+  if (null == obj || "object" != typeof obj) return obj;
+
+  // Handle Date
+  if (obj instanceof Date) {
+      copy = new Date();
+      copy.setTime(obj.getTime());
+      return copy;
+  }
+
+  // Handle Array
+  if (obj instanceof Array) {
+      copy = [];
+      for (var i = 0, len = obj.length; i < len; i++) {
+          copy[i] = clone(obj[i]);
+      }
+      return copy;
+  }
+
+  // Handle Object
+  if (obj instanceof Object) {
+      copy = {};
+      for (var attr in obj) {
+          if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+      }
+      return copy;
+  }
+
+  throw new Error("Unable to copy obj! Its type isn't supported.");
+}
 
 const useStyles =  withStyles(theme => ({
     root: {
@@ -33,21 +68,35 @@ class WorkshopModStub extends Component<any, any> {
             mods: {response: {
                 publishedfiledetails: []
             }}
+            
 
         }
         
     }
-
-    componentDidUpdate = (prevProps)=>{
-        if(prevProps.list !== this.props.list){
+    oldList = {}
+    componentWillReceiveProps = (prevProps)=>{
+      console.log(this.oldList, this.props.list)
+        if(prevProps.enabled_mods !== this.props.list.enabled_mods ){
             console.log("render")
             this.renderMods()
         }
     }
+    /*componentWillReceiveProps = (prevProps)=>{
+      console.log("newPRop");
+      console.log(prevProps.list);
+      console.log(this.props.list)
+      if(shallowEqual(prevProps.list, this.props.list)){
+        console.log("render")
+        this.renderMods()
+    }
+    }*/
+
     renderMods = async ()=>{
+      this.oldList = clone(this.props.list)
         var mods = await QueryWorkshop(this.props.list.enabled_mods.map((mod, index)=>{
             return mod.substring(8).replace(".mod", "")
         }))
+        //var mods = {}
         this.setState({...this.state, mods: (mods as QueryResponseObject)})
     }
 

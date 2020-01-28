@@ -19,4 +19,7 @@ static QueryModloaderActive(): Promise<boolean>{
 static GetDLCLoads(): Promise<QueryResponseObject>{
     return ipcRenderer.invoke("readGameDlc");
 }
+static GetMods(): Promise<string[]> {
+    return ipcRenderer.invoke("queryMods");
+}
 }

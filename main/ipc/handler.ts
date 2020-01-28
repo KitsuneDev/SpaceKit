@@ -2,13 +2,14 @@
 import {ipcMain} from 'electron'
 import {app} from 'electron';
 import {join} from 'path';
-import {exists, rename, readFile, copyFile} from 'fs'
+import {exists, rename, readFile, copyFile, readdir} from 'fs'
 import {promisify} from 'util';
 
 var renameAsync = promisify(rename);
 var readAsync = promisify(readFile);
 var copyAsync = promisify(copyFile);
 var existsAsync = promisify(exists);
+var ls = promisify(readdir)
 
 var rootName="Paradox Interactive/Stellaris"
 var rootDir=join(app.getPath("documents"), rootName);
@@ -37,7 +38,11 @@ export default function HandleIPC(){
 
       ipcMain.handle('queryModloader', async (event, arg) => {
         var state = join(rootDir, "dlc_load.json.userMods") //TODO: Set correct filename
-        return existsAsync(state);
+        return await existsAsync(state);
+      })
+      ipcMain.handle('queryMods', async (event, arg) => {
+        var state = join(rootDir, "mod") //TODO: Set correct filename
+        return await ls(state);
       })
 
 

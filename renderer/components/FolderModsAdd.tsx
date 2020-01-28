@@ -15,6 +15,8 @@ import AddIcon from '@material-ui/icons/Add';
 
 import { QueryWorkshop } from '../apis/QueryWorkshop';
 import { QueryResponseObject } from '../apis/QueryWorkshop';
+import ModManager from '../apis/modmanager';
+
 
 
 const useStyles =  withStyles(theme => ({
@@ -25,7 +27,7 @@ const useStyles =  withStyles(theme => ({
       },
     
 }))
-class WorkshopModStub extends Component<any, any> {
+class FolderModStub extends Component<any, any> {
 
     constructor(props){
         super(props)
@@ -38,17 +40,23 @@ class WorkshopModStub extends Component<any, any> {
         }
         
     }
+    componentWillMount = async () => {
+      console.log("load")
+      await this.renderData();
+    }
 
-    componentDidUpdate = (prevProps)=>{
-        if(prevProps.list !== this.props.list){
+    renderData = async ()=>{
+      var newList = await ModManager.GetMods()
+      console.log("prepRender")
+        if(newList !== this.state.list){
             console.log("render2")
-            this.setState({...this.state, inputList: this.props.list})
+            this.setState({...this.state, inputList: newList})
             this.renderMods()
         }
     }
     renderMods = async ()=>{
         var mods = await QueryWorkshop(this.state.inputList.map((mod, index)=>{
-            return mod.substring(8).replace(".mod", "")
+            return mod.substring(4).replace(".mod", "")
         }))
         this.setState({...this.state, mods: (mods as QueryResponseObject)})
     }
@@ -58,6 +66,7 @@ class WorkshopModStub extends Component<any, any> {
         inputList.splice(id, 1)
         this.setState({...this.state, inputList: inputList})
         this.renderMods();
+        this.props.addMod(id);
     }
     render() {
 
@@ -66,6 +75,7 @@ class WorkshopModStub extends Component<any, any> {
 
 
   return (
+    <div style={{height: "80px", overflow: "scroll"}}>
     <List className={classes.root}>
     {(this.state.mods as QueryResponseObject).response.publishedfiledetails.map((mod, value) => {
         
@@ -80,7 +90,7 @@ class WorkshopModStub extends Component<any, any> {
         </ListItemAvatar>
           <ListItemText id={labelId} primary={mod.title} />
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="comments" onClick={this.onAdd(value)}>
+            <IconButton edge="end" aria-label="comments" onClick={this.onAdd(this.state.inputList[value])}>
               <AddIcon />
             </IconButton>
           </ListItemSecondaryAction>
@@ -88,9 +98,10 @@ class WorkshopModStub extends Component<any, any> {
       );
     })}
   </List>
+  </div>
   );
         
     }
 }
 
-export default useStyles(WorkshopModStub)
+export default useStyles(FolderModStub)
