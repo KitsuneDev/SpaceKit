@@ -67,14 +67,15 @@ class Modloader extends Component {
     
     await ModManager.ToggleModloader({"status": event.target.checked})
     await this.loadModList();
-    this.setState({ ...this.state, checkedA: newState, ready: newState, processing: false });
-    
+    this.setState({  checkedA: newState, ready: newState, processing: false });
+    this.forceUpdate()
 
   }
 
   loadModList = async () => {
     var dlcs = await ModManager.GetDLCLoads();
-    this.setState({...this.state, dlcLoad: dlcs})
+    console.log("GODDLC", dlcs)
+    this.setState({dlcLoad: dlcs})
     
   }
 
@@ -111,6 +112,8 @@ class Modloader extends Component {
 
   saveList = async () => {
      // this.setState({...this.state, processing: true})
+     console.log(this.state)
+     ModManager.SaveDLCLoad(this.state.dlcLoad)
   }
 
   render() {
@@ -143,6 +146,7 @@ class Modloader extends Component {
         </Button>
         
         <br/><br/>
+        {console.log("RL:",this.state.dlcLoad)}
         <WorkshopModList list={this.state.dlcLoad} removeItem={this.removeMod} style={{width: "100%"}}/>
         <br/><br/>
         <Typography gutterBottom>

@@ -22,4 +22,7 @@ static GetDLCLoads(): Promise<QueryResponseObject>{
 static GetMods(): Promise<string[]> {
     return ipcRenderer.invoke("queryMods");
 }
+static SaveDLCLoad(config: DlcLoad): Promise<void>{
+    return ipcRenderer.invoke("saveGameDlc", config);
+}
 }

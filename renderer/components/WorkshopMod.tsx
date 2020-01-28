@@ -73,14 +73,22 @@ class WorkshopModStub extends Component<any, any> {
         }
         
     }
-    oldList = {}
+    oldList = {"enabled_mods": []}
     componentWillReceiveProps = (prevProps)=>{
       console.log(this.oldList, this.props.list)
         if(prevProps.enabled_mods !== this.props.list.enabled_mods ){
-            console.log("render")
+            console.log("render-list", prevProps, this.props)
             this.renderMods()
+            
         }
     }
+    /*componentWillUpdate = (prevProps) => {
+      console.log("I",this.oldList, this.props.list)
+      if(prevProps.list.enabled_mods.lenght !== this.props.list.enabled_mods.lenght){
+        console.log("render")
+        this.renderMods()
+    }*/
+    
     /*componentWillReceiveProps = (prevProps)=>{
       console.log("newPRop");
       console.log(prevProps.list);
@@ -92,12 +100,14 @@ class WorkshopModStub extends Component<any, any> {
     }*/
 
     renderMods = async ()=>{
+      console.log("Rendering state for", this.props.list.enabled_mods)
       this.oldList = clone(this.props.list)
         var mods = await QueryWorkshop(this.props.list.enabled_mods.map((mod, index)=>{
             return mod.substring(8).replace(".mod", "")
         }))
         //var mods = {}
         this.setState({...this.state, mods: (mods as QueryResponseObject)})
+
     }
 
     onRemove = (id) => () => {

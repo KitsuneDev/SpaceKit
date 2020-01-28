@@ -2,14 +2,16 @@
 import {ipcMain} from 'electron'
 import {app} from 'electron';
 import {join} from 'path';
-import {exists, rename, readFile, copyFile, readdir} from 'fs'
+import {exists, rename, readFile, copyFile, readdir, writeFile} from 'fs'
 import {promisify} from 'util';
+
 
 var renameAsync = promisify(rename);
 var readAsync = promisify(readFile);
 var copyAsync = promisify(copyFile);
 var existsAsync = promisify(exists);
 var ls = promisify(readdir)
+var writeFileAsync = promisify(writeFile)
 
 var rootName="Paradox Interactive/Stellaris"
 var rootDir=join(app.getPath("documents"), rootName);
@@ -44,8 +46,13 @@ export default function HandleIPC(){
         var state = join(rootDir, "mod") //TODO: Set correct filename
         return await ls(state);
       })
-
-
+      //saveGameDlc
+      ipcMain.handle('saveGameDlc', async (event, arg) => {
+        var configStr = JSON.stringify(arg)
+        var state = join(rootDir, "dlc_load.json") //TODO: Set correct filename
+        console.log("Saving", configStr, state)
+        return await writeFileAsync(state, configStr);
+      })
 
       ipcMain.handle('readGameDlc', async (event, arg) => {
         const path = join(rootDir, "dlc_load.json");
