@@ -18,9 +18,9 @@ export default (windowName: string, options: BrowserWindowConstructorOptions): B
   };
   let state = {};
   let win;
-  BrowserWindow.addDevToolsExtension(
-    path.join(os.homedir(), '/AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.4.0_0')
- )
+  //BrowserWindow.addDevToolsExtension(
+  //  path.join(os.homedir(), '/AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.4.0_0')
+ //)
   const restore = () => store.get(key, defaultSize);
 
   const getCurrentPosition = () => {

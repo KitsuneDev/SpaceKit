@@ -15,6 +15,12 @@ import ModManager from '../../apis/modmanager'
 import WorkshopModList from './../../components/WorkshopMod';
 import SaveButton from './../../components/saveButton';
 
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
 
 const styled = withStyles(theme => ({
      root: {
@@ -25,6 +31,17 @@ const styled = withStyles(theme => ({
     paper: {
       padding: "5%",
       
+    },
+    modal: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    modalContent: {
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
     }
   
   }));
@@ -36,7 +53,8 @@ class Modloader extends Component {
       checkedA: false,
       ready: false,
       processing: true,
-      dlcLoad: {"disabled_dlcs":[],"enabled_mods":[]}
+      dlcLoad: {"disabled_dlcs":[],"enabled_mods":[]},
+      addMod: false
     }
   }
 
@@ -87,7 +105,9 @@ class Modloader extends Component {
 
   render() {
     var {classes} = (this.props);
-    return (<ContentParticled>
+    return (
+    <ContentParticled>
+      <React.Fragment>
       <Paper elevation={3} className={classes.paper}>
       <Head>
         <title>Mod Manager</title>
@@ -122,8 +142,35 @@ class Modloader extends Component {
         
       </div>
       <SaveButton onClick={this.saveList} loading={this.state.processing} disabled={!this.state.ready}/>
+      <Fab color="primary" aria-label="add" onClick={()=>this.setState({...this.state, addMod:true})}>
+        <AddIcon />
+      </Fab>
       </Paper>
+
+      
+    <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={this.state.addMod}
+        onClose={()=>this.setState({...this.state, addMod: false})}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={this.state.addMod}>
+          <div className={classes.modalContent}>
+            <h2 id="transition-modal-title">Transition modal</h2>
+            <p id="transition-modal-description">react-transition-group animates me.</p>
+          </div>
+        </Fade>
+      </Modal>
+      </React.Fragment>
+      
     </ContentParticled>);
+    
 
   }
 
