@@ -7,7 +7,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macos-latest, windows-latest] #We are not doing [ubuntu-latest] right now since the project is not mature enough to publish a snap
+      fail-fast: false
 
     steps:
     - uses: actions/checkout@v2
