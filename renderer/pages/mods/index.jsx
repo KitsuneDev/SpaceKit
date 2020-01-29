@@ -130,6 +130,8 @@ class Modloader extends Component {
     dlcs.enabled_mods = enabled_mods;
     console.log(dlcs)
     this.setState({...this.state, dlcLoad: dlcs})
+
+    this.saveList()
   }
 
   removeMod = (index) => {
@@ -145,7 +147,11 @@ class Modloader extends Component {
   saveList = async () => {
      // this.setState({...this.state, processing: true})
      console.log(this.state)
-     ModManager.SaveDLCLoad(this.state.dlcLoad)
+     if(this.state.ready){
+     this.setState({ready: false, processing: true})
+     await ModManager.SaveDLCLoad(this.state.dlcLoad)
+     this.setState({ready: true, processing: false})
+     }
   }
 
   render() {
