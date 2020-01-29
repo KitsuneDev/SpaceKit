@@ -15,7 +15,7 @@ const useStyles = withStyles((theme: Theme) =>
       alignItems: 'center',
     },
     wrapper: {
-      margin: theme.spacing(1),
+      margin: 0,
       position: 'relative',
     },
     buttonSuccess: {
@@ -60,7 +60,7 @@ class SaveButton extends Component<any, any> {
       this.setState({...this.state, loading: this.props.loading, disabled: this.props.disabled})
 
       if(prevProps.loading == true){
-        this.setState({...this.state, success: true})
+        this.setState({...this.state, disabled:false, success: true, loading: false})
         setTimeout(()=>this.setState({loading: this.props.loading, success: false, disabled: this.props.disabled}), 2000)
       }
       }

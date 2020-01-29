@@ -54,6 +54,16 @@ const styled = withStyles(theme => ({
       bottom: 20,
       left: 'auto',
       position: 'fixed',
+    },
+    fab2: {
+      
+        margin: 0,
+        top: 'auto',
+        right: 20,
+        bottom: 90,
+        left: 'auto',
+        position: 'fixed',
+      
     }
   
   }));
@@ -156,11 +166,12 @@ class Modloader extends Component {
   saveList = async () => {
      // this.setState({...this.state, processing: true})
      console.log(this.state)
-     if(this.state.ready){
+     //if(this.state.ready){
      this.setState({ready: false, processing: true})
      await ModManager.SaveDLCLoad(this.state.dlcLoad)
      this.setState({ready: true, processing: false})
-     }
+     console.log("Saved")
+     //}
   }
 
   render() {
@@ -203,7 +214,9 @@ class Modloader extends Component {
         {this.state.processing ? <LinearProgress /> : ""}
         
       </div>
-      <SaveButton onClick={this.saveList} loading={this.state.processing} disabled={this.state.processing}  className={classes.fab}/>
+      <div className={classes.fab2}>
+      <SaveButton onClick={this.saveList} loading={this.state.processing} disabled={this.state.processing}  />
+      </div>
       <Fab color="primary" aria-label="add" onClick={()=>this.setState({...this.state, addMod:true})} disabled={this.state.processing} className={classes.fab}>
         <AddIcon />
       </Fab>
