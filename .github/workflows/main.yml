@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v2
     - name: NPM or Yarn install with caching
       uses: bahmutov/npm-install@v1.1.0
     - name: Electron Builder Action
