@@ -5,6 +5,7 @@ dependencies:
   '@material-ui/pickers': 3.2.9_2228f94e18069d4d2cba4fc0abd2c4eb
   '@material-ui/styles': 4.9.0_c8a168afa712c8c7b27c64a4de716a57
   axios: 0.19.2
+  bootstrap: 4.4.1
   clsx: 1.0.4
   electron-serve: 0.4.1
   electron-store: 5.1.0
@@ -2029,6 +2030,15 @@ packages:
     optional: true
     resolution:
       integrity: sha512-OElxJ1lUSinuoUnkpOgLmxp0DC4ytEhODEL6QJU0NpxE/mI4rUSh8h1P1Wkvfi3xQEBcxXR2gBIPNYNuaFcAbQ==
+  /bootstrap/4.4.1:
+    dev: false
+    engines:
+      node: '>=6'
+    peerDependencies:
+      jquery: 1.9.1 - 3
+      popper.js: ^1.16.0
+    resolution:
+      integrity: sha512-tbx5cHubwE6e2ZG7nqM3g/FZ5PQEDMWmMGNrCUBVRPHXTJaH7CBDdsLeu3eCh3B1tzAxTnAbtmrzvWEvT2NNEA==
   /bowser/1.9.4:
     dev: false
     resolution:
@@ -8308,6 +8318,7 @@ specifiers:
   '@zeit/next-css': 1.0.1
   axios: ^0.19.2
   babel-loader: 8.0.6
+  bootstrap: ^4.4.1
   clsx: ^1.0.4
   electron: ^7.1.10
   electron-builder: ^22.3.2

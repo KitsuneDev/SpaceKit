@@ -25,4 +25,8 @@ static GetMods(): Promise<string[]> {
 static SaveDLCLoad(config: DlcLoad): Promise<void>{
     return ipcRenderer.invoke("saveGameDlc", config);
 }
+
+static FileExists(file: String): Promise<Boolean> {
+    return ipcRenderer.invoke("fileExists", file);
+}
 }

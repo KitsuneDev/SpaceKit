@@ -39,17 +39,17 @@ export default function HandleIPC(){
 
 
       ipcMain.handle('queryModloader', async (event, arg) => {
-        var state = join(rootDir, "dlc_load.json.userMods") //TODO: Set correct filename
+        var state = join(rootDir, "dlc_load.json.userMods") 
         return await existsAsync(state);
       })
       ipcMain.handle('queryMods', async (event, arg) => {
-        var state = join(rootDir, "mod") //TODO: Set correct filename
+        var state = join(rootDir, "mod") 
         return await ls(state);
       })
       //saveGameDlc
       ipcMain.handle('saveGameDlc', async (event, arg) => {
         var configStr = JSON.stringify(arg)
-        var state = join(rootDir, "dlc_load.json") //TODO: Set correct filename
+        var state = join(rootDir, "dlc_load.json") 
         console.log("Saving", configStr, state)
         return await writeFileAsync(state, configStr);
       })
@@ -61,5 +61,10 @@ export default function HandleIPC(){
         return JSON.parse(file.toString())
         }
         else return {"disabled_dlcs":[],"enabled_mods":[]}
+      })
+      //fileExists
+      ipcMain.handle('fileExists', async (event, arg) => {
+        var state = join(rootDir, arg) 
+        return await existsAsync(state);
       })
 }

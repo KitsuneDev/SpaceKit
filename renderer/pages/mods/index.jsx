@@ -14,6 +14,10 @@ import Switch from '@material-ui/core/Switch';
 import axios from 'axios'
 import Dialog from 'react-bootstrap-dialog'
 
+import NoSsr from '@material-ui/core/NoSsr'
+import dynamic from 'next/dynamic'
+import SteamWorkshopSubscriber from '../../apis/WorkshopSubscribe'
+
 import ModManager from '../../apis/modmanager'
 import FolderModList from '../../components/FolderModsAdd'
 import WorkshopModList from './../../components/WorkshopMod';
@@ -120,24 +124,63 @@ class Modloader extends Component {
   }
 
   loadFromUrl = async () => {
-    /*this.setState({ready: false, processing: true})
+    //import("../../apis/WorkshopSubscribe")//, async (SteamWorkshopSubscriber)=>{
+      //const SteamWorkshopSubscriber = dynamic(() => import('../../apis/WorkshopSubscribe'))
+    let subscriber = new SteamWorkshopSubscriber();
+
+    this.setState({ready: false, processing: true})
     console.log(this.dialog)
-    var prompt = ""
-    this.dialog.show({
-      title: 'Download ModList',
-      body: 'How are you?',
-      actions: [
-        Dialog.CancelAction(),
-        Dialog.OKAction()
-      ],
-      bsSize: 'small',
-      onHide: (dialog) => {
-        dialog.hide()
-        console.log('closed by clicking background.')
+    try {
+    let prompt = await this.prompt("URL to a ModList file:")
+    let req = await axios.get(prompt)
+    let mods = req.data
+    for (const modFile of mods.enabled_mods) {
+      if(!await ModManager.FileExists(modFile)){
+        let mod = modFile.replace("mod/ugc_", "").replace(".mod", "");
+        console.log("Subscribe for", mod)
+        let subsc = await subscriber.subscribe(mod);
+        console.log(subsc)
       }
+      else {
+        console.log("Mod Exists::", modFile)
+      }
+    }
+  
+
+
+    this.setState({dlcLoad: mods, ready: true, processing: false})
+
+
+    this.saveList();
+  } catch {
+    this.dialog.showAlert('Could not complete request.')
+    this.setState({ready: true, processing: false})
+  }
+    
+    
+  //});
+  }
+
+  prompt = (Text) => {
+    return new Promise((resolve, reject)=> {
+      this.dialog.show({
+        body: Text,
+        prompt: Dialog.TextPrompt(),
+        actions: [
+          Dialog.CancelAction((di)=>reject("cancel")),
+          Dialog.OKAction((dialog) => {
+            const result = dialog.value
+            resolve(result)
+            
+          }),
+          
+        ],
+        onHide: (dialog) => {
+          //dialog.hide()
+          //reject("Action was cancelled")
+        }
+      })
     })
-    var req = await axios.get(prompt)
-    this.setState({dlcLoad: req.data})*/
   }
 
 
@@ -179,11 +222,18 @@ class Modloader extends Component {
     return (
     <ContentParticled>
       <React.Fragment>
-      <Dialog ref={(el) => { this.dialog = el }} />
+      
       <Paper elevation={3} className={classes.paper}>
       <Head>
         <title>Mod Manager</title>
+        <link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+  crossorigin="anonymous"
+/>
       </Head>
+      <Dialog ref={(el) => { this.dialog = el }} />
 
       <div className={classes.root}>
         <Typography variant="h4" gutterBottom>
@@ -200,9 +250,11 @@ class Modloader extends Component {
         label="Use ModManager"
       />
         <br/><br/>
+        <NoSsr>
         <Button variant="contained" color="primary" disabled={!this.state.ready || this.state.processing} onClick={this.loadFromUrl}>
           Load Session from URL
         </Button>
+        </NoSsr>
         
         <br/><br/>
         {console.log("RL:",this.state.dlcLoad)}

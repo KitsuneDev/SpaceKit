@@ -17,6 +17,7 @@
     "@material-ui/pickers": "^3.2.9",
     "@material-ui/styles": "^4.9.0",
     "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
     "clsx": "^1.0.4",
     "electron-serve": "^0.4.1",
     "electron-store": "^5.1.0",
