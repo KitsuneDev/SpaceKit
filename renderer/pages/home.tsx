@@ -26,7 +26,7 @@ var styles = withStyles(theme => ({
     buttonGo: {
         textAlign: "center",
         display: "flex",
-        paddingLeft: "15%"
+        paddingLeft: "35%" //15%
         
     },
     inline: {
@@ -81,12 +81,12 @@ class Home extends Component<any, any> {
                                      Manage Mods
                             </Button>
                             </Link>
-                            <Link href="/next">
+                          {/*  <Link href="/next">
                         <Button variant="contained" color="primary">
                                 <NavigationIcon className={classes.extendedIcon} />
                                      Edit saves
                             </Button>
-                            </Link>
+                            </Link>*/}
                             
                             </Bounce>
                         

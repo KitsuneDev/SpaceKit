@@ -1,22 +1,22 @@
+# SpaceKit 2
+
+![CI](https://github.com/GabrielTK/SpaceKit/workflows/CI/badge.svg)
+
+A Mod Manager and Save Editor (comming soon) for Stellaris, a game by Paradox Interactive
+
 <p align="center"><img src="https://i.imgur.com/flcMvDC.png"></p>
 
 ## Usage
 
-### Create an App
+More usage info will be available soon. 
 
-```zsh
-# with `nextron`
-$ nextron init my-app --example with-typescript-material-ui
+### Publishing ModLists
 
-# with npx
-$ npx create-nextron-app my-app --example with-typescript-material-ui
+To publish a ModList, upload the `dlc_load.json` (located at your `Documents\Paradox Interactive\Stellaris` folder) to Gist or Pastebin, and send the **RAW** link to your users.
+ 
+## Running from source
+SpaceKit requires NodeJS and Typescript to Run.
 
-# with yarn
-$ yarn create nextron-app my-app --example with-typescript-material-ui
-
-# with pnpx
-$ pnpx create-nextron-app my-app --example with-typescript-material-ui
-```
 
 ### Install Dependencies
 
@@ -30,7 +30,7 @@ $ yarn (or `npm install`)
 $ pnpm install --shamefully-hoist
 ```
 
-### Use it
+### Starting
 
 ```zsh
 # development mode
