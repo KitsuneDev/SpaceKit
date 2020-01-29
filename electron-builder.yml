@@ -1,6 +1,6 @@
-appId: com.example.nextron
-productName: My Nextron App
-copyright: Copyright © 2018 Yoshihide Shiono
+appId: me.gabrieltk.spacekit
+productName: SpaceKit
+copyright: Copyright © 2018 GabrielTK
 directories:
   output: dist
   buildResources: resources
