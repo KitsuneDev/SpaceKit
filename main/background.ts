@@ -2,6 +2,7 @@ import { app } from 'electron';
 import serve from 'electron-serve';
 import { createWindow } from './helpers';
 import setupIPC from './ipc/handler'
+import AppUpdater from './helpers/updater';
 const isProd: boolean = process.env.NODE_ENV === 'production';
 
 if (isProd) {
@@ -10,7 +11,7 @@ if (isProd) {
   
   app.setPath('userData', `${app.getPath('userData')} (development)`);
 }
-
+var updater = new AppUpdater(isProd);
 (async () => {
   await app.whenReady();
   setupIPC()
