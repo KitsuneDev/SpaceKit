@@ -47,7 +47,7 @@ export default class SteamWorkshopSubscriber {
             
             win.webContents.on('did-navigate', async (event, url, httpResponseCode, httpStatusText)=>{
                 console.log("NavigURL", url)
-                if(url=="https://steamcommunity.com" || url.includes("https://steamcommunity.com/id/")){
+                if(url=="https://steamcommunity.com" || url.includes("https://steamcommunity.com/id/") || url.includes("https://steamcommunity.com/profiles/")){
                     var cookies = await win.webContents.session.cookies.get({
                         domain: "steamcommunity.com"
                     })
