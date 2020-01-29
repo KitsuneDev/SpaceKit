@@ -1,0 +1,23 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: NPM or Yarn install with caching
+      uses: bahmutov/npm-install@v1.1.0
+    - name: Electron Builder Action
+      uses: samuelmeuli/action-electron-builder@v1.3.0
+      with:
+        # GitHub authentication token: 
+          github_token: 190bc6833d04f7747737919e9a76ccf7c2ad167f
+          #mac_certs: # optional
+          #Password for decrypting `mac_certs`
+          #mac_certs_password: # optional:  
+          release: true
+          build_script_name: build
+     
