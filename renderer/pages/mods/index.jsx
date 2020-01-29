@@ -46,6 +46,14 @@ const styled = withStyles(theme => ({
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
+    },
+    fab: {
+      margin: 0,
+      top: 'auto',
+      right: 20,
+      bottom: 20,
+      left: 'auto',
+      position: 'fixed',
     }
   
   }));
@@ -92,6 +100,7 @@ class Modloader extends Component {
       console.log(isOn);
       var props = {
         checkedA: isOn,
+        ready: isOn,
         processing: false
       }
       await this.loadModList();
@@ -194,8 +203,8 @@ class Modloader extends Component {
         {this.state.processing ? <LinearProgress /> : ""}
         
       </div>
-      <SaveButton onClick={this.saveList} loading={this.state.processing} disabled={this.state.processing}/>
-      <Fab color="primary" aria-label="add" onClick={()=>this.setState({...this.state, addMod:true})} disabled={this.state.processing}>
+      <SaveButton onClick={this.saveList} loading={this.state.processing} disabled={this.state.processing}  className={classes.fab}/>
+      <Fab color="primary" aria-label="add" onClick={()=>this.setState({...this.state, addMod:true})} disabled={this.state.processing} className={classes.fab}>
         <AddIcon />
       </Fab>
       </Paper>

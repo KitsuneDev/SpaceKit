@@ -38,7 +38,7 @@ const useStyles = withStyles((theme: Theme) =>
       left: '50%',
       marginTop: -12,
       marginLeft: -12,
-    },
+    }
   }),
 );
 
@@ -71,7 +71,8 @@ class SaveButton extends Component<any, any> {
 
     
     const buttonClassname = clsx({
-      [classes.buttonSuccess]: this.state.success
+      [classes.buttonSuccess]: this.state.success,
+      //[classes.fab]: true
     });
     /*React.useEffect(() => {
       return () => {
