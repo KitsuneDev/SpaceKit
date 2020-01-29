@@ -8,9 +8,12 @@ dependencies:
   clsx: 1.0.4
   electron-serve: 0.4.1
   electron-store: 5.1.0
+  lodash.isequal: 4.5.0
   lodash.merge: 4.6.2
   prop-types: 15.7.2
   qs: 6.9.1
+  react-bootstrap: 1.0.0-beta.16_react-dom@16.12.0+react@16.12.0
+  react-bootstrap-dialog: 0.13.0_aa2ff4855d9f8ea14470688f99d9889d
   react-center-component: 3.0.0_react-dom@16.12.0+react@16.12.0
   react-particles-js: 2.7.0_react@16.12.0
   react-reveal: 1.2.2_react@16.12.0
@@ -1332,6 +1335,22 @@ packages:
       react-dom: ^16.8.0
     resolution:
       integrity: sha512-+ux0SlLdlehvzCk2zdQ3KiS3/ylWvuo/JwAGhvb8dFVvwR21K28z0PU9OQW2PGogrMEdvX3miEI5tGxTwwWiwQ==
+  /@restart/context/2.1.4_react@16.12.0:
+    dependencies:
+      react: 16.12.0
+    dev: false
+    peerDependencies:
+      react: '>=16.3.2'
+    resolution:
+      integrity: sha512-INJYZQJP7g+IoDUh/475NlGiTeMfwTXUEr3tmRneckHIxNolGOW9CTq83S8cxq0CgJwwcMzMJFchxvlwe7Rk8Q==
+  /@restart/hooks/0.3.20_react@16.12.0:
+    dependencies:
+      react: 16.12.0
+    dev: false
+    peerDependencies:
+      react: ^16.8.0
+    resolution:
+      integrity: sha512-Q1eeEqcxHQ4oqty7C5Me8/hzWwdCRR643nR/6EHxv8BVxLVYHe4IoWAHg8MIGkE4VtSm3/JnNhkoLJhCkLx5aw==
   /@sindresorhus/is/0.14.0:
     dev: true
     engines:
@@ -4280,7 +4299,6 @@ packages:
   /invariant/2.2.4:
     dependencies:
       loose-envify: 1.4.0
-    dev: true
     resolution:
       integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
   /is-accessor-descriptor/0.1.6:
@@ -4711,6 +4729,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-qkBzPTi3rlAKvX7k0/ub44sqOfXeLc/jcnGGmj5c7BJpU8eDrEVPyhCvNYAaoubbsLm9uGWwQJO1ytQK1a9/dQ==
+  /keycode/2.2.0:
+    dev: false
+    resolution:
+      integrity: sha1-PQr1bce4uOXLqNCpfxByBO7CKwQ=
   /keyv/3.1.0:
     dependencies:
       json-buffer: 3.0.0
@@ -4828,6 +4850,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-JI42By7ekGUB11lmIAqG2riyMXA=
+  /lodash.isequal/4.5.0:
+    dev: false
+    resolution:
+      integrity: sha1-QVxEePK8wwEgwizhDtMib30+GOA=
   /lodash.merge/4.6.2:
     dev: false
     resolution:
@@ -6306,6 +6332,16 @@ packages:
     dev: true
     resolution:
       integrity: sha512-K+Tk3Kd9V0odiXFP9fwDHUYRyvK3Nun3GVyPapSIs5OBkITAm15W0CPFD/YKTkMUAbc0b9CUwRQp2ybiBIq+eA==
+  /prop-types-extra/1.1.1_react@16.12.0:
+    dependencies:
+      react: 16.12.0
+      react-is: 16.12.0
+      warning: 4.0.3
+    dev: false
+    peerDependencies:
+      react: '>=0.14.0'
+    resolution:
+      integrity: sha512-59+AHNnHYCdiC+vMwY52WmvP5dM3QLeoumYuEyceQDi9aEhtwN9zIQ2ZNo25sMyXnbh32h+P1ezDsUpUH3JAew==
   /prop-types/15.7.2:
     dependencies:
       loose-envify: 1.4.0
@@ -6461,6 +6497,44 @@ packages:
     dev: false
     resolution:
       integrity: sha1-GYoAuR/DdiPbZKKP0XtZa6NicC8=
+  /react-bootstrap-dialog/0.13.0_aa2ff4855d9f8ea14470688f99d9889d:
+    dependencies:
+      react: 16.12.0
+      react-bootstrap: 1.0.0-beta.16_react-dom@16.12.0+react@16.12.0
+    dev: false
+    engines:
+      node: ^12.0.0
+      npm: ^3.0.0
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0
+      react-bootstrap: '*'
+    resolution:
+      integrity: sha512-mchodv4gJKFINq87OAJR8E3fpOHPyq3BY1xg3DUSH64j7T38DK0aOOK/zOcLuBxIEy9Wc2QWsjJqILXc8eWkoQ==
+  /react-bootstrap/1.0.0-beta.16_react-dom@16.12.0+react@16.12.0:
+    dependencies:
+      '@babel/runtime': 7.8.3
+      '@restart/context': 2.1.4_react@16.12.0
+      '@restart/hooks': 0.3.20_react@16.12.0
+      '@types/react': 16.9.19
+      classnames: 2.2.6
+      dom-helpers: 5.1.3
+      invariant: 2.2.4
+      keycode: 2.2.0
+      popper.js: 1.16.1
+      prop-types: 15.7.2
+      prop-types-extra: 1.1.1_react@16.12.0
+      react: 16.12.0
+      react-dom: 16.12.0_react@16.12.0
+      react-overlays: 2.1.0_react-dom@16.12.0+react@16.12.0
+      react-transition-group: 4.3.0_react-dom@16.12.0+react@16.12.0
+      uncontrollable: 7.1.1_react@16.12.0
+      warning: 4.0.3
+    dev: false
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    resolution:
+      integrity: sha512-wjb+3CwviDWAaz4O3gQpd2XMDNqbOiqOOzpLm5aLPcp1wTsQsVRhyM+rTPmO3hYU8auA2eNpTYLz08/fAcMqDA==
   /react-center-component/3.0.0_react-dom@16.12.0+react@16.12.0:
     dependencies:
       lodash: 4.17.15
@@ -6510,6 +6584,23 @@ packages:
     dev: false
     resolution:
       integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+  /react-overlays/2.1.0_react-dom@16.12.0+react@16.12.0:
+    dependencies:
+      '@babel/runtime': 7.8.3
+      '@restart/hooks': 0.3.20_react@16.12.0
+      dom-helpers: 5.1.3
+      popper.js: 1.16.1
+      prop-types: 15.7.2
+      react: 16.12.0
+      react-dom: 16.12.0_react@16.12.0
+      uncontrollable: 7.1.1_react@16.12.0
+      warning: 4.0.3
+    dev: false
+    peerDependencies:
+      react: '>=16.3.0'
+      react-dom: '>=16.3.0'
+    resolution:
+      integrity: sha512-tHPGTZosbQSo82yb9x4YCsmJJtspKvAPL5kXVnyoB2Z5UoAU3VetIuh2VblfVT408us5nLJd9uDtwI3xWDHS6w==
   /react-particles-js/2.7.0_react@16.12.0:
     dependencies:
       lodash: 4.17.15
@@ -7728,6 +7819,18 @@ packages:
     dev: false
     resolution:
       integrity: sha512-+O8/qh/Qj8CgC6eYBVBykMrNtp5Gebn4dlGD/kKXVkJNDwyrAwSIqwz8CDf+tsAIWVycKcku6gIXJ0qwx/ZXaQ==
+  /uncontrollable/7.1.1_react@16.12.0:
+    dependencies:
+      '@babel/runtime': 7.8.3
+      '@types/react': 16.9.19
+      invariant: 2.2.4
+      react: 16.12.0
+      react-lifecycles-compat: 3.0.4
+    dev: false
+    peerDependencies:
+      react: '>=15.0.0'
+    resolution:
+      integrity: sha512-EcPYhot3uWTS3w00R32R2+vS8Vr53tttrvMj/yA1uYRhf8hbTG2GyugGqWDY0qIskxn0uTTojVd6wPYW9ZEf8Q==
   /unfetch/4.1.0:
     dev: true
     resolution:
@@ -7941,6 +8044,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
+  /warning/4.0.3:
+    dependencies:
+      loose-envify: 1.4.0
+    dev: false
+    resolution:
+      integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
   /watchpack/1.6.0:
     dependencies:
       chokidar: 2.1.8
@@ -8205,12 +8314,15 @@ specifiers:
   electron-serve: ^0.4.1
   electron-store: ^5.1.0
   fontfaceobserver: 2.1.0
+  lodash.isequal: ^4.5.0
   lodash.merge: ^4.6.2
   next: 9.2.1
   nextron: ^5.14.4
   prop-types: ^15.7.2
   qs: ^6.9.1
   react: ^16.12.0
+  react-bootstrap: ^1.0.0-beta.16
+  react-bootstrap-dialog: ^0.13.0
   react-center-component: ^3.0.0
   react-dom: ^16.12.0
   react-particles-js: ^2.7.0

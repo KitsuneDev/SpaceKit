@@ -11,6 +11,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
+import axios from 'axios'
+import Dialog from 'react-bootstrap-dialog'
 
 import ModManager from '../../apis/modmanager'
 import FolderModList from '../../components/FolderModsAdd'
@@ -85,7 +87,7 @@ class Modloader extends Component {
 
   componentDidMount = async () => {
     
-      console.log("Loading Page...")
+      console.log("Loading Page....")
       var isOn = await ModManager.QueryModloaderActive();
       console.log(isOn);
       var props = {
@@ -98,23 +100,44 @@ class Modloader extends Component {
     
   }
 
-  componentWillUpdate = (props) => {
-    
+  loadFromUrl = async () => {
+    /*this.setState({ready: false, processing: true})
+    console.log(this.dialog)
+    var prompt = ""
+    this.dialog.show({
+      title: 'Download ModList',
+      body: 'How are you?',
+      actions: [
+        Dialog.CancelAction(),
+        Dialog.OKAction()
+      ],
+      bsSize: 'small',
+      onHide: (dialog) => {
+        dialog.hide()
+        console.log('closed by clicking background.')
+      }
+    })
+    var req = await axios.get(prompt)
+    this.setState({dlcLoad: req.data})*/
   }
 
 
   addMod = (id) => {
     var dlcs = this.state.dlcLoad;
-    dlcs.enabled_mods.push("mod/"+id)
+    var enabled_mods = [...dlcs.enabled_mods]
+    enabled_mods.push("mod/"+id)
     console.log("Added mod", id)
+    dlcs.enabled_mods = enabled_mods;
     console.log(dlcs)
     this.setState({...this.state, dlcLoad: dlcs})
   }
 
   removeMod = (index) => {
     var dlcs = this.state.dlcLoad;
-    dlcs.enabled_mods.splice(index, 1);
+    var enabled_mods = [...dlcs.enabled_mods]
+    enabled_mods.splice(index, 1);
     console.log("Removed at", index)
+    dlcs.enabled_mods = enabled_mods;
     console.log(dlcs)
     this.setState({...this.state, dlcLoad: dlcs})
   }
@@ -130,6 +153,7 @@ class Modloader extends Component {
     return (
     <ContentParticled>
       <React.Fragment>
+      <Dialog ref={(el) => { this.dialog = el }} />
       <Paper elevation={3} className={classes.paper}>
       <Head>
         <title>Mod Manager</title>
@@ -150,7 +174,7 @@ class Modloader extends Component {
         label="Use ModManager"
       />
         <br/><br/>
-        <Button variant="contained" color="primary" disabled={!this.state.ready || this.state.processing}>
+        <Button variant="contained" color="primary" disabled={!this.state.ready || this.state.processing} onClick={this.loadFromUrl}>
           Load Session from URL
         </Button>
         
@@ -164,8 +188,8 @@ class Modloader extends Component {
         {this.state.processing ? <LinearProgress /> : ""}
         
       </div>
-      <SaveButton onClick={this.saveList} loading={this.state.processing} disabled={!this.state.ready}/>
-      <Fab color="primary" aria-label="add" onClick={()=>this.setState({...this.state, addMod:true})}>
+      <SaveButton onClick={this.saveList} loading={this.state.processing} disabled={this.state.processing}/>
+      <Fab color="primary" aria-label="add" onClick={()=>this.setState({...this.state, addMod:true})} disabled={this.state.processing}>
         <AddIcon />
       </Fab>
       </Paper>
