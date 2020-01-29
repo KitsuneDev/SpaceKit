@@ -2,8 +2,8 @@
   "private": true,
   "name": "SpaceKit2",
   "description": "My application description",
-  "version": "1.0.5",
-  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
+  "version": "1.0.7",
+  "author": "GabrielTK <gabrieltk@cgnetworks.me>",
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",
