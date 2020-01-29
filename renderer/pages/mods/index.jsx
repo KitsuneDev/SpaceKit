@@ -63,12 +63,13 @@ class Modloader extends Component {
   toggleModLoader = async (event) => {
     var newState = event.target.checked
     console.log(newState)
-    this.setState({...this.state, ready: false, processing: true})
+    this.setState({ready: false, processing: true})
     
     await ModManager.ToggleModloader({"status": event.target.checked})
-    await this.loadModList();
-    this.setState({  checkedA: newState, ready: newState, processing: false });
-    this.forceUpdate()
+    await this.loadModList()
+    this.setState({  checkedA: newState, ready: newState, processing: true });
+    //this.setState({  checkedA: newState});
+    
 
   }
 
@@ -76,7 +77,10 @@ class Modloader extends Component {
     var dlcs = await ModManager.GetDLCLoads();
     console.log("GODDLC", dlcs)
     this.setState({dlcLoad: dlcs})
-    
+    setTimeout(()=>{ //TODO: Make it work without this hack
+      this.forceUpdate()
+      this.setState({processing: false})
+    }, 300)
   }
 
   componentDidMount = async () => {
@@ -89,10 +93,15 @@ class Modloader extends Component {
         processing: false
       }
       await this.loadModList();
-      this.setState({...this.state, ...props});
+      this.setState(props);
       
     
   }
+
+  componentWillUpdate = (props) => {
+    
+  }
+
 
   addMod = (id) => {
     var dlcs = this.state.dlcLoad;

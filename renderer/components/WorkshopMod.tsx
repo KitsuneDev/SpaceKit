@@ -82,6 +82,8 @@ class WorkshopModStub extends Component<any, any> {
             
         }
     }
+
+    
     /*componentWillUpdate = (prevProps) => {
       console.log("I",this.oldList, this.props.list)
       if(prevProps.list.enabled_mods.lenght !== this.props.list.enabled_mods.lenght){
