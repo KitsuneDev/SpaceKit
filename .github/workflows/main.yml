@@ -15,10 +15,11 @@ jobs:
       uses: samuelmeuli/action-electron-builder@v1.3.0
       with:
         # GitHub authentication token: 
-          github_token: 190bc6833d04f7747737919e9a76ccf7c2ad167f
+          github_token: ${{ secrets.github_token }}
+
           #mac_certs: # optional
           #Password for decrypting `mac_certs`
           #mac_certs_password: # optional:  
           release: true
-          build_script_name: build
+          
      
