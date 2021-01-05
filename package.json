@@ -16,7 +16,7 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/pickers": "^3.2.9",
     "@material-ui/styles": "^4.9.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
     "clsx": "^1.0.4",
     "electron-log": "^4.0.4",
